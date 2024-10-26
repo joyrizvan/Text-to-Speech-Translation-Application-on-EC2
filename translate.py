@@ -20,12 +20,6 @@ def text_to_speech(text, output_file):
     with open(output_file, "wb") as file:
         file.write(response["AudioStream"].read())
 
-# def delete_existing_audio_files():
-#     # Delete all mp3 files in the static directory
-#     files = glob.glob("static/*.mp3")
-#     for file_path in files:
-#         os.remove(file_path)
-
 def delete_existing_audio_files():
     # Remove existing MP3 files in the static directory
     files = glob.glob("static/*.mp3")  # Ensure the path is correct
