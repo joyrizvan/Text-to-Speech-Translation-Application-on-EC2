@@ -10,6 +10,7 @@ def index():
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
+    delete_existing_audio_files()
     audio_url = ""
     if request.method=='POST':
         input=request.form.get("input_text")
@@ -18,7 +19,7 @@ def main():
             lang=selected_lang
             translate=do_translate(input, lang)
         # Delete previous mp3 files
-        delete_existing_audio_files()
+
         # Generate audio file path
         audio_file = "static/output.mp3"
 
