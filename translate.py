@@ -2,11 +2,18 @@ import boto3
 
 
 def do_translate(input, lang):
-    translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
+    translate = boto3.client(service_name='translate', region_name='ca-central-1', use_ssl=True)
     result = translate.translate_text(Text=input, SourceLanguageCode="en", TargetLanguageCode=lang)
     return result.get('TranslatedText')
 
 
-# a = "Hello World"
-# translated_text = do_translate(a)
-# print(translated_text)
+# New function to convert translated text to speech
+def text_to_speech(text, output_file):
+    polly_client = boto3.client("polly", region_name="ca-central-1")
+    response = polly_client.synthesize_speech(
+        Text=text,
+        OutputFormat="mp3",
+        VoiceId="Joanna"  # Adjust as desired
+    )
+    with open(output_file, "wb") as file:
+        file.write(response["AudioStream"].read())
