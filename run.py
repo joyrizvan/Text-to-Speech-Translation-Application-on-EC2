@@ -17,7 +17,8 @@ def main():
         if selected_lang is not None:
             lang=selected_lang
             translate=do_translate(input, lang)
-
+        # Delete previous mp3 files
+        delete_existing_audio_files()
         # Generate audio file path
         audio_file = "static/output.mp3"
 

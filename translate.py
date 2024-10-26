@@ -1,5 +1,6 @@
 import boto3
-
+import os
+import glob
 
 def do_translate(input, lang):
     translate = boto3.client(service_name='translate', region_name='ca-central-1', use_ssl=True)
@@ -17,3 +18,9 @@ def text_to_speech(text, output_file):
     )
     with open(output_file, "wb") as file:
         file.write(response["AudioStream"].read())
+
+def delete_existing_audio_files():
+    # Delete all mp3 files in the static directory
+    files = glob.glob("static/*.mp3")
+    for file_path in files:
+        os.remove(file_path)
