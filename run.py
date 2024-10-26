@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index_a.html")
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
@@ -25,7 +25,7 @@ def main():
         text_to_speech(translate, audio_file)
         audio_url = f"/{audio_file}"  # URL for the audio file to access from HTML
 
-        return render_template("index.html", input=input, lang=selected_lang, translate=translate, audio_url=audio_url)
+        return render_template("index_a.html", input=input, lang=selected_lang, translate=translate, audio_url=audio_url)
 
 
 #Insert the line below to to run on Cloud9    
