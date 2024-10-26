@@ -3,7 +3,7 @@ import os
 import glob
 
 def do_translate(input, lang):
-    delete_existing_audio_files()
+
     translate = boto3.client(service_name='translate', region_name='ca-central-1', use_ssl=True)
     result = translate.translate_text(Text=input, SourceLanguageCode="en", TargetLanguageCode=lang)
     return result.get('TranslatedText')
@@ -20,8 +20,17 @@ def text_to_speech(text, output_file):
     with open(output_file, "wb") as file:
         file.write(response["AudioStream"].read())
 
+# def delete_existing_audio_files():
+#     # Delete all mp3 files in the static directory
+#     files = glob.glob("static/*.mp3")
+#     for file_path in files:
+#         os.remove(file_path)
+
 def delete_existing_audio_files():
-    # Delete all mp3 files in the static directory
-    files = glob.glob("static/*.mp3")
+    # Remove existing MP3 files in the static directory
+    files = glob.glob("static/*.mp3")  # Ensure the path is correct
     for file_path in files:
-        os.remove(file_path)
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"Error deleting file {file_path}: {e}")
