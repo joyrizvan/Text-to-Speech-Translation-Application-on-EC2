@@ -26,3 +26,11 @@ def main():
         audio_url = f"/{audio_file}"  # URL for the audio file to access from HTML
 
         return render_template("index.html", input=input, lang=selected_lang, translate=translate, audio_url=audio_url)
+
+
+#Insert the line below to to run on Cloud9    
+app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))
+
+if __name__ == '__main__':
+    app.run()
+    app.debug(True)
