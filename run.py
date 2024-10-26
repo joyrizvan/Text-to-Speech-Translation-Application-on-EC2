@@ -52,9 +52,9 @@ def main():
             # Generate speech audio from translated text
             text_to_speech(translated_text, audio_file_path)
 
-            # Add a cache-busting parameter to the URL
-            audio_url = f"/{audio_file_name}?t={timestamp}"
-            
+            # URL for the audio file to access from HTML
+            audio_url = f"/{audio_file_path}"
+
             return render_template("index_a.html", input=input_text, lang=selected_lang, translate=translated_text, audio_url=audio_url)
 
     return render_template("index_a.html")
