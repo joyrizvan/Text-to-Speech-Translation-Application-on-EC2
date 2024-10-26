@@ -10,7 +10,7 @@ def index():
 
 @app.route('/', methods=['POST', 'GET'])
 def main():
-    delete_existing_audio_files()
+
     audio_url = ""
     if request.method=='POST':
         input=request.form.get("input_text")
