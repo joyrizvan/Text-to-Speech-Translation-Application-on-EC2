@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import os
 from translate import *
-
+import time
 app = Flask(__name__)
 
 @app.route('/')
@@ -45,14 +45,16 @@ def main():
             delete_existing_audio_files()
 
             # Generate audio file path
-            audio_file = "static/output.mp3"
+            timestamp = int(time.time())  # Current timestamp
+            audio_file_name = f"output_{timestamp}.mp3"
+            audio_file_path = os.path.join("static", audio_file_name)
 
             # Generate speech audio from translated text
-            text_to_speech(translated_text, audio_file)
+            text_to_speech(translated_text, audio_file_path)
 
-            # URL for the audio file to access from HTML
-            audio_url = f"/{audio_file}"
-
+            # Add a cache-busting parameter to the URL
+            audio_url = f"/{audio_file_name}?t={timestamp}"
+            
             return render_template("index_a.html", input=input_text, lang=selected_lang, translate=translated_text, audio_url=audio_url)
 
     return render_template("index_a.html")
